@@ -14,6 +14,7 @@ export const CartReducer = (state = initialState, { type, payload }) => {
         case ActionTypes.ADD_TO_CART: {
             const tempItem = state.cartItems.find((item) => item.id === payload.id + payload.mainColor)
             if (tempItem) {
+                console.log('adtocart',tempItem);
                 const tempCart = state.cartItems.map((cartItem) => {
                     if (cartItem.id === payload.id + payload.mainColor) {
                         let newAmount = cartItem.amount + payload.amount;

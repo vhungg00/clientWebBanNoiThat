@@ -35,7 +35,6 @@ export const Products = ({ children }) => {
 export const ProductItems = () => {
 
     const products = useSelector((state) => state.allProducts.products)
-    console.log("product: ",products)
     const [listProducts, setListProducts] = useState([...Array(3).keys()])
     const trail = useTrail(listProducts.length, {
         from: {
@@ -71,9 +70,9 @@ const LoadButton = ({ setListProducts }) => {
 
     const handleClick = () => {
         setLoading(true)
-        setListProducts(prevState => (
-            [...prevState,
-            ...Array.from(Array(3).keys(), n => n + prevState.length)]))
+        setListProducts(prevState => {
+            return [...prevState, ...Array.from(Array(3).keys(), n => n + n)]
+        })
     }
     setTimeout(() => setLoading(false), 400);
 
@@ -93,7 +92,7 @@ export const Product = forwardRef(({ id, image, name, price }, ref) => {
         <Wrapper>
             <div className='box-product' ref={ref}>
                 <img src={image} alt={name} />
-                <Link to={`/productdetail/${id}`} className='link'>
+                <Link to={`/product/${id}`} className='link'>
                     <FaSearch />
                 </Link>
             </div>

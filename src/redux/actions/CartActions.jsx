@@ -1,9 +1,9 @@
 import { ActionTypes } from "../constans/ActionTypes";
 
-export const addToCart = (id, mainColor, amount, product) => {
+export const addToCart = ({item}) => {
     return {
         type: ActionTypes.ADD_TO_CART,
-        payload: { id, mainColor, amount, product }
+        payload: item,
 
     };
 };

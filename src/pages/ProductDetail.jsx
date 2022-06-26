@@ -12,6 +12,7 @@ import './ProductDetail.css';
 
 function ProductDetail() {
     const { productID } = useParams()
+    console.log('a',productID);
     const product = useSelector((state) => state.product)
     const [loading, SetLoading] = useState(true)
     const dispatch = useDispatch()
@@ -35,6 +36,8 @@ function ProductDetail() {
         if (productID && productID !== "") fetchProductDetail(productID)
         return () => dispatch(removeSelectedProduct())
     }, [productID])
+
+    
     if (typeof product === 'object' && product !== null) {
         const { name, price, images, description, stock, stars, reviews, id: sku, company } = product;
         return (

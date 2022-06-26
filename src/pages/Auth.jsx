@@ -1,35 +1,55 @@
-import { useForm } from "react-hook-form";
 
+import { Button, Checkbox, Form, Input } from 'antd';
+import classNames from 'classnames/bind';
 import styles from './Auth.module.scss';
-import classNames from 'classnames/bind'
 
 const cx = classNames.bind(styles)
 
 function Auth() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = (data) => console.log(data);
-  const name = watch('name');
-  const email = watch('email');
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
   return (
     <div className={cx('wrapper')}>
-      <h3 style={{ marginTop: "100px" }}>xin chao</h3>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {/* register your input into the hook by invoking the "register" function */}
-        <input defaultValue='name' {...register("name")} />
-        <p>{name}</p>
-        {/* include validation with required or other standard HTML validation rules */}
-        <input {...register("email", {
-          required: true, pattern: {
-            value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-            message: 'Please enter a valid email',
-          },
-        })} />
-        {/* errors will return when field validation fails  */}
-        {errors.password && <span></span>}
+      <Form
+      name="basic"
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
+      initialValues={{ remember: false }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      <Form.Item
+        label="Username"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}
+      >
+        <Input />
+      </Form.Item>
 
-        <input type="submit" />
-      </form>
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
 
+      <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
+
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
     </div>
   );
 }

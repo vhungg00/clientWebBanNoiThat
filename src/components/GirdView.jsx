@@ -27,7 +27,7 @@ function GirdView({ loadProducts }) {
                                 <Wrapper>
                                     <div className='grid-product'>
                                         <img src={image} alt={name} />
-                                        <Link to={`/productdetail/${id}`} className='gird-link'>
+                                        <Link to={`/product/${id}`} className='gird-link'>
                                             <FaSearch />
                                         </Link>
                                     </div>
